@@ -1,0 +1,72 @@
+\documentclass[11pt]{article}
+\setlength{\parindent}{0pt}
+
+
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{indentfirst}
+
+\title{MA 590 Homework 10}
+\author{Dane Johnson}
+
+\begin{document}
+\maketitle
+
+\section*{1}
+
+\section*{Part a}
+
+We want to find $x_{\text{MAP}} = \text{arg } \underset{x\in \mathbb{R}}{\max}$ $ \pi_{\text{post}}(x) = \text{arg } \underset{x\in \mathbb{R}}{\min}$ $ -\text{log}\left(\pi_{\text{post}}(x)\right)$. In the case that $\frac{\alpha}{\sigma_0} >> \frac{1-\alpha}{\sigma_1}$, $\pi_{\text{post}}(x) \approx \frac{\alpha}{\sigma_0}\frac{1}{\sqrt{2\pi}}\text{exp}\left(-\frac{x^2}{2\sigma_0^2}\right)$. We will find the minimum of $-\text{log}\left(\pi_{\text{post}}(x)\right)$.
+
+\begin{align*}
+0 &= \frac{d}{dx} \left[-\text{log}\left(\pi_{\text{post}}(x)\right) \right] \\
+0 &= \frac{d}{dx} \left[-\text{log}\left(\frac{\alpha}{\sigma_0}\frac{1}{\sqrt{2\pi}}\right) + \frac{x^2}{2\sigma_0^2} \right]\\
+0& = \frac{x}{\sigma_0^2} \implies x = 0 \text{ is a critical point.}
+\end{align*}
+
+Then since in this scenario $\frac{d^2}{dx^2} \left[-\text{log}\left(\pi_{\text{post}}(x)\right) \right] = \frac{1}{\sigma_0^2} > 0$ for any $x$, $x=0$ must be a minimum of $-\text{log}\left(\pi_{\text{post}}(x)\right)$. So in this scenario $x_{\text{MAP}} = 0$. \\
+
+In the case that $\frac{\alpha}{\sigma_0} << \frac{1-\alpha}{\sigma_1}$, $\pi_{\text{post}}(x) \approx \frac{1-\alpha}{\sigma_1}\frac{1}{\sqrt{2\pi}}\text{exp}\left(-\frac{(x-1)^2}{2\sigma_1^2}\right)$. We will find the minimum of $-\text{log}\left(\pi_{\text{post}}(x)\right)$.
+\begin{align*}
+0 &= \frac{d}{dx} \left[-\text{log}\left(\pi_{\text{post}}(x)\right) \right] \\
+0 &= \frac{d}{dx} \left[-\text{log}\left(\frac{1-\alpha}{\sigma_1}\frac{1}{\sqrt{2\pi}}\right) + \frac{(x-1)^2}{2\sigma_1^2}\right]\\
+0&= \frac{x-1}{\sigma_1^2} \implies x = 1 \text{ is a critical point.}
+\end{align*}
+
+Then since in this scenario $\frac{d^2}{dx^2} \left[-\text{log}\left(\pi_{\text{post}}(x)\right) \right] = \frac{1}{\sigma_1^2} > 0$ for any $x$, $x=0$ must be a minimum of $-\text{log}\left(\pi_{\text{post}}(x)\right)$. So in this scenario $x_{\text{MAP}} = 1$. \\
+
+Since $\pi_{\text{post}}(x)$ is the sum of two scaled Gaussian functions (which because of our coefficient assumptions here are strictly positive), one with a mean at $x=0$ and another with $x=1$, then if the coefficient of one of these 'pieces' is not significantly larger than the other, the tails of the Gaussian functions interact nontrivially to give an $x_{\text{MAP}}$ between 0 and 1. The coefficients then determine whether $x_{\text{MAP}}$ is closer to 0 or 1 (see figures 3 and 4). \\
+
+Next the conditional mean:
+
+\begin{align*}
+x_{\text{CM}} &= \int_{-\infty}^{\infty}\frac{\alpha x}{\sigma_0\sqrt{2\pi}}\text{exp}\left(-\frac{x^2}{2\sigma_0^2}\right) + \frac{(1-\alpha)x}{\sigma_1\sqrt{2\pi}}\text{exp}\left(-\frac{(x-1)^2}{2\sigma_1^2} \right) \; dx\\
+&=\alpha \int_{-\infty}^{\infty}\frac{x}{\sigma_0\sqrt{2\pi}}\text{exp}\left(-\frac{x^2}{2\sigma_0^2}\right) \; dx + (1-\alpha)\int_{-\infty}^{\infty} \frac{x}{\sigma_1\sqrt{2\pi}}\text{exp}\left(-\frac{(x-1)^2}{2\sigma_1^2} \right) \; dx\\
+&= \alpha(0) + (1-\alpha)(1) = 1-\alpha \;.
+\end{align*}
+
+The simplification comes from the fact that $\frac{1}{\sigma_0\sqrt{2\pi}}\text{exp}\left(-\frac{x^2}{2\sigma_0^2}\right)$ and $\frac{1}{\sigma_1\sqrt{2\pi}}\text{exp}\left(-\frac{(x-1)^2}{2\sigma_1^2}\right)$ are Gaussian functions and can serve as posterior distributions. In lecture we saw that in this case $x_{\text{MAP}} = \mu$, the mean of the Gaussian. Splitting the integral as we did shows the definition of $x_{CM}$ for these two Gaussian functions, which have means 0 and 1. \\
+
+\section*{Part b}
+
+See the end of the document for the figures. In the first case, we might say that $x_{MAP}$ is a better representation of the underlying function since a larger proportion of the area under the curve (probability) is clustered around this value while in the second case the conditional mean is better under the same assumption that we want a value near where a larger proportion of the data is clustered. In the first case we have small variance relative to $\alpha$, explaining why the data is clustered away from $1-\alpha$ while in the second case the larger spread around $x=1$ means that $1-\alpha \approx 1$ will be nearer to where more area under the curve is located. \\
+
+In the first case the conditional covariance is
+$$\sigma^2 = \alpha \sigma_0^2 + (1-\alpha)(\sigma_1^2 + 1) - (1-\alpha)^2 = 0.254$$
+
+In the second case the conditional covariance, using the same formula, is  $\sigma^2 = 0.0198$. In both cases the conditional covariance is much closer to $\alpha$ than either of $\sigma_0^2$ or $\sigma_1^2$.
+
+\section*{2}
+
+The model can be transformed to $$\text{log}(Y) = \text{log}(E) + \text{log}(G(X)) \; ,$$
+where $\text{log}(E) \sim \mathcal{N}(0,\sigma^2 \textbf{I})$. When the variance is unknown the likelihood function for $\text{log}(Y)$ conditioned on $X = x$ is 
+
+$$\pi(\text{log}(y) \; | \; x, \sigma^2) = \frac{1}{(2\pi)^{m/2}\sigma^m}\text{exp}\left(-\frac{1}{2\sigma^2} ||\text{log}(y) - \text{log}(G(X))||_2^2\right)\;,$$
+
+while in the case that the variance is known the likelihood function is then
+
+$$\pi(\text{log}(y) \; | \; x, \sigma^2) \propto \text{exp}\left(-\frac{1}{2\sigma^2} ||\text{log}(y) - \text{log}(G(X))||_2^2\right)\;.$$
+\newpage
+\section*{Figures}
+\end{document}

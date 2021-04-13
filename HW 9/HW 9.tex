@@ -1,0 +1,75 @@
+\documentclass[11pt]{article}
+\setlength{\parindent}{0pt}
+
+
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{indentfirst}
+
+\title{MA 590 Homework 9}
+\author{Dane Johnson}
+
+\begin{document}
+\maketitle
+
+\section*{1}
+
+\section*{Part a}
+
+First the expected value of the Rayleigh distribution:
+
+\begin{align*}
+\mathbb{E}[x] &= \int_{-\infty}^{\infty} x\pi(x) \;\text{d}x\\
+&= \int_{0}^{\infty} x \frac{x}{\sigma^2}e^{-\frac{x^2}{2\sigma^2}} \;\text{d}x\\
+&\text{Let } t(x) = \frac{x}{\sqrt{2}\sigma}, \quad \sqrt{2}\sigma \text{d}t = \text{d}x\\
+&t(0) = 0, \quad \lim_{x \rightarrow \infty} t(x) = \infty \\
+&= \int_{0}^{\infty} (\sqrt{2}\sigma t)\frac{\sqrt{2}\sigma t}{\sigma^2}e^{-t^2} \sqrt{2}\sigma\;\text{d}t \\
+&= 2\sqrt{2}\sigma\int_{0}^{\infty} t\left(te^{-t^2}\right) \;\text{d}t\\
+&=2\sqrt{2}\sigma\left[\lim_{k\rightarrow \infty} t\left(-\frac{1}{2}e^{-t^2}\right)\Big|_{0}^k + \frac{1}{2}\int_{0}^{\infty} e^{-t^2} \;\text{d}t \right]\\
+&=2\sqrt{2}\sigma\left[(0 - 0)  + \frac{1}{2}\frac{\sqrt{\pi}}{2} \right] \quad \left(\text{using the Gaussian integral: }\int_{-\infty}^{\infty} e^{-t^2} \;\text{d}t = \sqrt{\pi}\right).\\
+&= \frac{2\sqrt{2}\sigma\sqrt{\pi}}{4}\\
+&= \frac{\sqrt{2}\sigma\sqrt{\pi}}{2} \\
+&= \sigma\sqrt{\frac{\pi}{2}} \;.
+\end{align*}
+
+In finding the value of $x$ that maximizes $\pi(x)$, we note that $\pi(x)$ is defined only for $x\geq 0$ and $\pi(0) = 0$. We know that $x=0$ cannot maximized $\pi(x)$ since then $\pi(x)$ could not be a probability density function. Then since the logarithm function is strictly increasing for $x>0$, the value of $x$ that maximizes $\pi(x)$ also maximizes log$(\pi(x))$. But this means that the value of $x$ that maximizes $\pi(x)$ will minimize -log$(\pi(x))$. To find this minimizing value of $x$, we will differentiate and set the result to 0. To verify that this critical point is a minimum we use the second derivative (the injectivity of the logarithm function ensures that this is a global minimum). 
+
+\begin{align*}
+\frac{\text{d}}{\text{d}x} -\text{log}\left(\frac{x}{\sigma^2}e^{-\frac{x^2}{2\sigma^2}}\right) &=
+\frac{\text{d}}{\text{d}x} \left[-\text{log}\left(\frac{x}{\sigma^2}\right) +\frac{x^2}{2\sigma^2}\right]\\
+&= -\frac{1}{x} + \frac{x}{\sigma^2}\\
+0 &= -\frac{1}{x} + \frac{x}{\sigma^2}, \; \text{ and } x> 0 \implies x = \sigma.
+\end{align*}
+\begin{align*}
+\frac{\text{d}}{\text{d}x}\left[-\frac{1}{x} + \frac{x}{\sigma^2}\right] &= \frac{1}{x^2} + \frac{1}{\sigma^2}\\
+\frac{1}{\sigma^2} + \frac{1}{\sigma^2} > 0 &\implies x = \sigma \text{ minimizes -log}(\pi(x))
+\end{align*}
+Therefore, arg $\underset{x}{\max}$ $\pi(x) = \sigma \neq \mathbb{E}[x] = \sigma\sqrt{\frac{\pi}{2}}$.
+
+\section*{Part b}
+Let $X_1,...,X_N \overset{iid}{\sim} \text{Rayleigh}(\sigma^2)$. Set $\theta = \sigma^2$. Let $x_1,...,x_N$ be a realization of a random sample from $X_1,...,X_N \overset{iid}{\sim} \text{Rayleigh}(\theta)$.  The likelihood of the parameter $\theta$ is $$L(\theta \, | \, x_1,...,x_N) = \pi_{X_1,...,X_n}(x_1,...,x_N \, | \, \theta) = \prod_{i = 1}^N \pi_X(x_i \, | \, \theta) \;.$$
+The log likelihood is then 
+$$l(\theta \, | \, x_1,...,x_N) = \text{log}(L(\theta \, | \, x_1,...,x_N)) = \sum_{i=1}^N \text{log}(\pi_X(x_i \, | \, \theta)) \;.$$
+
+Since the logarithm function is strictly increasing, maximizing the log likelihood function is equivalent to maximizing the likelihood function. Then the maximum likelihood estimator  can be found by determining the value of $\hat{\theta}_{ML}$ such that $l(\hat{\theta}_{ML} \, | \, x_1,...,x_N)  \geq l(\theta \, | \, x_1,...,x_N)$ for all admissible values of the parameter $\theta$.
+
+\begin{align*}
+\frac{\text{d}}{\text{d}\theta} l(\theta \, | \, x_1,...,x_N) &= \sum_{i=1}^N \frac{\text{d}}{\text{d}\theta} \left[\text{log}\left(\frac{x_i}{\theta}\right) - \frac{x_i^2}{2\theta}\right]\\
+&=\sum_{i=1}^N \frac{\theta}{x_i}\frac{-x_i}{\theta^2} + \frac{x_i^2}{2\theta^2}\\
+&= \sum_{i=1}^N -\frac{1}{\theta} + \frac{1}{2\theta^2}\sum_{i=1}^N x_i^2 \\
+&= -\frac{N}{\theta} + \frac{1}{2\theta^2}\sum_{i=1}^N x_i^2 \;.
+\end{align*}
+$$0 = -\frac{N}{\theta} + \frac{1}{2\theta^2}\sum_{i=1}^N x_i^2 \implies \hat{\theta}_{ML}  = \frac{1}{2N} \sum_{i=1}^{N} x_i^2 \;.$$
+
+$$\frac{\text{d}}{\text{d}\theta} \left[-\frac{N}{\theta} + \frac{1}{2\theta^2}\sum_{i=1}^N x_i^2\right] = \frac{N}{\theta^2} - \frac{1}{\theta^3}\sum_{i= 1}^N x_i^2 \;.$$
+
+Let $S = \sum_{i=1}^N x_i^2$. Putting in $\hat{\theta}_{ML}$ for the second derivative we have:
+$$ \frac{N}{S^2}4N^2- \frac{8N^3}{S^3}S = \frac{4N^3}{S^2} - \frac{8N^3}{S^2} < 0 \;.$$
+
+So the value of $\hat{\theta}_{ML}$ is indeed a maximum of the log likelihood function and therefore maximizes the likelihood function. We conclude that the maximum likelihood estimation of the parameter $\sigma^2 = \theta$ is $\hat{\sigma}^2_{ML} = \frac{1}{2N}\sum_{i=1}^N x_i^2$ or $\hat{\sigma}_{ML} = \sqrt{\frac{1}{2N}\sum_{i=1}^N x_i^2}$. 
+
+\section*{2}
+
+I realized that the method I was experimenting with in coming up with my final project idea wasn't technically a  linear inverse problem. Reading in an audio file in matlab gives a two column matrix for right and left sound. The process could then be applied to each column individually or working with mono (and just one column vector) would be fine as well. Call this vector of audio data $x$. A distorted audio clip, $y$, is the result of multiplying $x$ by some 'noise matrix' $G$, so that $y = Gx$. The most simple option for $G$ is a diagonal matrix where each diagonal entry is of the form $1 + \epsilon$, where $\epsilon$ is randomly generated noise. This is of course the same as just adding a vector of noise to $x$, but doing things with a matrix allows me to write the equation $y = Gx$ as necessary. Since this form of $G$ is not very interesting, it will be better to try more complicated ways of distorting the audio file. In a matlab script that I will attach, I have tried the slightly more involved process of using a tridiagonal $G$ matrix (see Project\_Script1.m) where the main diagonal is all 1's and the first sub/super diagonals are noise vectors. This does produce a noticeably 'noisy' audio clip.  So far I have found that CGLS works reasonably well at denoising in this case. A difficulty I am encountering is that even fairly short audio clips give very long $x$ vectors and so any non-sparse choices of $G$ will make computations very expensive for any method that is not intended this scenario. This is just a start, so I suppose more experiments will be coming. 
+\end{document}

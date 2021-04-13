@@ -1,0 +1,99 @@
+\documentclass[11pt]{article}
+\setlength{\parindent}{0pt}
+
+
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{indentfirst}
+
+\title{MA 590 Homework 8}
+\author{Dane Johnson}
+
+\begin{document}
+\maketitle
+
+\section*{Exercise 1}
+
+\section*{Part a}
+
+Prove that $\mathbb{E}[(X-\bar{x})(Y-\bar{y})] = \mathbb{E}[XY] - \mathbb{E}[X]\mathbb{E}[Y]$.
+
+\begin{align}
+\text{Cov}(X,Y) &\equiv \mathbb{E}[(X-\bar{x})(Y-\bar{y})] \\
+&= \mathbb{E}[XY-\bar{y}X - \bar{x}Y + \bar{x}\bar{y})] \\
+&=\mathbb{E}[XY] + \mathbb{E}[-\bar{y}X] + \mathbb{E}[-\bar{x}Y] + \mathbb{E}[\bar{x}\bar{y}] \\
+&= \mathbb{E}[XY] - \bar{y}\mathbb{E}[X] - \bar{x}\mathbb{E}[Y] + \bar{x}\bar{y} \\
+&= \mathbb{E}[XY] - \bar{y}\bar{x} - \bar{x}\bar{y} + \bar{x}\bar{y} \\
+&= \mathbb{E}[XY] - \bar{x}\bar{y} \\
+&= \mathbb{E}[XY] - \mathbb{E}[X]\mathbb{E}[Y] \;.
+\end{align}
+
+(1) Definition of Cov$(X,Y)$. (2) Distributive property. (3) Linearity of expectation. (4) Linearity of expectation. (5) Definition of $\bar{x},\bar{y}$. (6) Simplification. (7) Definition of $\bar{x},\bar{y}$.
+
+\section*{Part b}
+
+Prove that if $X$ and $Y$ are independent random variables, then $X$ and $Y$ are uncorrelated (that if the correlation between $X$ and $Y$ is denoted by $r$, then $r = 0$). \\
+
+Suppose $X$ and $Y$ are independent. Then $\mathbb{E}[XY] = \mathbb{E}[X]\mathbb{E}[Y]$. Using part a, this means that Cov$(X,Y) = \mathbb{E}[XY] - \mathbb{E}[X]\mathbb{E}[Y] = \mathbb{E}[X]\mathbb{E}[Y] - \mathbb{E}[X]\mathbb{E}[Y] = 0$. Therefore, $r \equiv \text{Cov}(X,Y) / (\sigma_X \sigma_Y) = 0 / (\sigma_X \sigma_Y) = 0$, showing that $X$ and $Y$ are uncorrelated. 
+
+\section*{Part c}
+
+Prove that for $s \in \mathbb{R}$ and $X$ a random variable, that Var$(sX) = s^2$Var$(X)$. \\
+
+For a random variable $Z$, Var$(Z) \equiv \mathbb{E}[(Z - \bar{z})^2]$, where $\bar{z} = \mathbb{E}[Z]$. In the case of $sX$ we have $\mathbb{E}[sX] = s\mathbb{E}[X] = s\bar{x}$ by linearity and:
+
+\begin{align}
+\text{Var}(sX) &= \mathbb{E}[(sX-s\bar{x})^2] \\
+&= \mathbb{E}[s^2(X-\bar{x})^2] \\
+&= s^2\mathbb{E}[(X-\bar{x})^2]\\
+&= s^2 \text{Var}(X) \;.
+\end{align}
+
+(8) Definition of variance. (9) Factoring. (10) Linearity of expectation. (11) Definition of variance. 
+
+\section*{Part d}
+
+Prove that Var$(X+Y) = \text{Var}(X) + \text{Var}(Y) + 2\text{Cov}(X,Y)$. 
+
+First note that for a random variable $Z$:
+
+\begin{align*}
+\text{Var}(Z) \equiv \mathbb{E}[(Z - \bar{z})^2] &= \mathbb{E}[Z^2 - 2\bar{z}Z + (\bar{z})^2] \\
+&= \mathbb{E}[Z^2] -2(\bar{z})^2 + (\bar{z})^2 \\
+&= \mathbb{E}[Z^2] - (\mathbb{E}[Z])^2 \;.
+\end{align*}
+
+Let $X,Y$ be random variables. The variance of the random variable $X+Y$ is:
+
+\begin{align*}
+\text{Var}(X+Y) &= \mathbb{E}[(X+Y)^2] - (\mathbb{E}[X+Y])^2 \\
+&= \mathbb{E}[X^2] + 2\mathbb{E}[XY] + \mathbb{E}[Y]^2 - (\mathbb{E}[X])^2 - 2\mathbb{E}[X]\mathbb{E}[Y] - (\mathbb{E}[Y])^2 \\
+&= \mathbb{E}[X^2] - (\mathbb{E}[X])^2 + \mathbb{E}[Y^2] - (\mathbb{E}[Y])^2 + 2\left(\mathbb{E}[XY] - \mathbb{E}[X]\mathbb{E}[Y]\right) \\
+&= \text{Var}(X) + \text{Var}(Y) + 2\left(\mathbb{E}[XY] - \mathbb{E}[X]\mathbb{E}[Y]\right) \\
+&= \text{Var}(X) + \text{Var}(Y) + 2\text{Cov}(X,Y) \;.
+\end{align*}
+
+\section*{Exercise 2}
+
+Consider the random variable $A = X\textbf{e}_1 + Y \textbf{e}_2$, where $X,Y \sim \mathcal{N}(0,\sigma^2)$. If we define $R = ||A||_2$, then since no matter what the dimension of $A$ only the first two components of $A$ are nonzero (by our definition of $A$), $R = \sqrt{X^2 + Y^2}$. Since $X$ and $Y$ are continuous random variables, it follows that $R$ is also a continuous random variable. Then the cumulative distribution function of $R$, which we denote $F_R(t)$ is given by:
+$$F_R(t) \equiv P(R \leq t) = P(\sqrt{X^2 + Y^2} \leq t) = \int_{-t}^{t} \int_{-\sqrt{t^2-x^2}}^{\sqrt{t^2-x^2}} f_{X,Y}(x,y) \, dy \, dx \;,$$
+
+where $f_{X,Y}$ is the joint probability density function of $X$ and $Y$. If we assume that $X$ and $Y$ are independent (and so by the above iid) random variables, $f_{X,Y}(x,y) = f_X(x)f_Y(y)$. The pdf of a normal random variable $Z$ with mean zero and standard deviation $\sigma$ is $f_Z(z) = 1/(\sqrt{2\pi}\sigma) \,\text{exp}(-z^2/(2\sigma^2))$.Then, $$f_{X,Y}(x,y) = f_X(x)f_Y(y) = \frac{1}{\sqrt{2\pi}\sigma} e^\frac{-x^2}{2\sigma^2} \frac{1}{\sqrt{2\pi}\sigma}e^\frac{-y^2}{2\sigma^2} = \frac{1}{2\pi\sigma^2}e^\frac{-(x^2+y^2)}{2\sigma^2} \; .$$
+ Converting the double integral above to polar coordinates we have
+
+\begin{align*}
+F_R(t) &= \int_{0}^{2\pi} \int_{0}^{t} \frac{1}{2\pi\sigma^2} e^\frac{-r^2}{2\sigma^2} \, r \, dr d\theta\\
+&= \frac{1}{2\pi \sigma^2}\int_{0}^{2\pi} \int_{0}^{t} r e^\frac{-r^2}{2\sigma^2}\, dr d\theta\\
+&= \frac{1}{2\pi \sigma^2}\int_{0}^{2\pi} d\theta \int_{0}^{t^2} \frac{1}{2} e^\frac{-u}{2\sigma^2} \, du \\
+&=\frac{1}{\sigma^2} \int_{0}^{t^2} \frac{1}{2} e^\frac{-u}{2\sigma^2} \, du \\
+&= \frac{1}{\sigma^2}\frac{1}{2}\frac{2\sigma^2}{-1}\left(e^\frac{-u}{2\sigma^2}\right)\rvert_{0}^{t^2} \\
+&= -\left(e^\frac{-t^2}{2\sigma^2} - 1\right)\\
+&= 1 - e^\frac{-t^2}{2\sigma^2} \;.
+\end{align*}
+
+We note the restriction $t \geq 0$ since $t = \sqrt{X^2+Y^2} \geq 0$. The probability density function of $R$, $f_R(t)$, is the derivative of $F_R(t)$. Therefore, the probability density function of the Rayleigh distribution is:
+
+$$ f_R(t) = \frac{d}{dt} \; F_R(t) = -\frac{-2t}{2\sigma^2}e^\frac{-t^2}{2\sigma^2} = \frac{t}{\sigma^2}e^\frac{-t^2}{2\sigma^2}\; , \quad t \geq 0 \;.$$
+
+\end{document}
